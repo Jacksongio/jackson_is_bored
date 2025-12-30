@@ -2,10 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function PassiveAggressiveLoading() {
   const [progress, setProgress] = useState(0);
   const [messageIndex, setMessageIndex] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [gradient, setGradient] = useState('linear-gradient(to bottom right, #0f172a, #581c87, #0f172a)');
   const router = useRouter();
 
   const passiveAggressiveMessages = [
@@ -32,6 +35,40 @@ export default function PassiveAggressiveLoading() {
   ];
 
   useEffect(() => {
+    // Gradient effect
+    const colors = [
+      '#0f172a', '#1e293b', '#334155',
+      '#7f1d1d', '#991b1b', '#b91c1c',
+      '#7c2d12', '#9a3412', '#c2410c',
+      '#78350f', '#92400e', '#b45309',
+      '#365314', '#3f6212', '#4d7c0f',
+      '#14532d', '#166534', '#15803d',
+      '#164e63', '#155e75', '#0e7490',
+      '#1e3a8a', '#1e40af', '#1d4ed8',
+      '#5b21b6', '#6d28d9', '#7c3aed',
+      '#86198f', '#a21caf', '#c026d3',
+    ];
+
+    const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
+    
+    const directions = [
+      'to bottom right',
+      'to bottom left',
+      'to top right',
+      'to top left',
+    ];
+
+    const changeGradient = () => {
+      const direction = directions[Math.floor(Math.random() * directions.length)];
+      const color1 = getRandomColor();
+      const color2 = getRandomColor();
+      const color3 = getRandomColor();
+      setGradient(`linear-gradient(${direction}, ${color1}, ${color2}, ${color3})`);
+    };
+
+    const gradientInterval = setInterval(changeGradient, 3000);
+    changeGradient();
+
     // Update progress bar - takes 45 seconds
     const progressInterval = setInterval(() => {
       setProgress(prev => {
@@ -55,13 +92,66 @@ export default function PassiveAggressiveLoading() {
     }, 2000);
 
     return () => {
+      clearInterval(gradientInterval);
       clearInterval(progressInterval);
       clearInterval(messageInterval);
     };
   }, [router]);
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="flex min-h-screen transition-all duration-1000" style={{ background: gradient }}>
+      {/* Sidebar */}
+      <aside className={`fixed top-0 left-0 h-full bg-black/30 backdrop-blur-md border-r border-white/10 transition-transform duration-300 z-50 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="w-64 h-full p-4">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 text-white/70 hover:text-white"
+          >
+            ✕
+          </button>
+          <nav className="mt-12 space-y-2">
+            <Link 
+              href="/"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Home
+            </Link>
+            <Link 
+              href="/fun-button"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Fun Button
+            </Link>
+            <Link 
+              href="/dad-joke"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Dad Joke Generator
+            </Link>
+            <Link 
+              href="/loading-screen"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Super Cool Thing
+            </Link>
+            <Link 
+              href="/existential-crisis"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Existential Crisis
+            </Link>
+          </nav>
+        </div>
+      </aside>
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="fixed top-4 left-4 z-40 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+      >
+        ☰
+      </button>
+
       <main className="flex-1 flex flex-col items-center justify-center px-4 gap-8">
         <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">
           Super Cool Thing

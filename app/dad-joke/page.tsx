@@ -6,6 +6,7 @@ import Link from 'next/link';
 export default function DadJoke() {
   const [gradient, setGradient] = useState('linear-gradient(to bottom right, #0f172a, #581c87, #0f172a)');
   const [currentJoke, setCurrentJoke] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const dadJokes = [
     "Why don't scientists trust atoms? Because they make up everything!",
@@ -170,14 +171,60 @@ export default function DadJoke() {
       className="flex min-h-screen transition-all duration-1000"
       style={{ background: gradient }}
     >
+      {/* Sidebar */}
+      <aside className={`fixed top-0 left-0 h-full bg-black/30 backdrop-blur-md border-r border-white/10 transition-transform duration-300 z-50 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="w-64 h-full p-4">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 text-white/70 hover:text-white"
+          >
+            ✕
+          </button>
+          <nav className="mt-12 space-y-2">
+            <Link 
+              href="/"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Home
+            </Link>
+            <Link 
+              href="/fun-button"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Fun Button
+            </Link>
+            <Link 
+              href="/dad-joke"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Dad Joke Generator
+            </Link>
+            <Link 
+              href="/loading-screen"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Super Cool Thing
+            </Link>
+            <Link 
+              href="/existential-crisis"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Existential Crisis
+            </Link>
+          </nav>
+        </div>
+      </aside>
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="fixed top-4 left-4 z-40 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+      >
+        ☰
+      </button>
+
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 gap-8">
-        <Link 
-          href="/"
-          className="absolute top-4 left-4 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors border border-white/20"
-        >
-          ← Back
-        </Link>
 
         <h1 className="text-4xl md:text-6xl font-bold text-white text-center">
           Dad Joke Generator

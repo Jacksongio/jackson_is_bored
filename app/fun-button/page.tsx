@@ -7,6 +7,7 @@ export default function FunButton() {
   const [gradient, setGradient] = useState('linear-gradient(to bottom right, #0f172a, #581c87, #0f172a)');
   const [buttonPos, setButtonPos] = useState({ x: 50, y: 50 });
   const [buttonText, setButtonText] = useState('Click Me!');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const messages = [
@@ -113,12 +114,57 @@ export default function FunButton() {
       style={{ background: gradient }}
       onMouseMove={handleMouseMove}
     >
-      <Link 
-        href="/"
-        className="fixed top-4 left-4 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+      {/* Sidebar */}
+      <aside className={`fixed top-0 left-0 h-full bg-black/30 backdrop-blur-md border-r border-white/10 transition-transform duration-300 z-50 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="w-64 h-full p-4">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 text-white/70 hover:text-white"
+          >
+            ✕
+          </button>
+          <nav className="mt-12 space-y-2">
+            <Link 
+              href="/"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Home
+            </Link>
+            <Link 
+              href="/fun-button"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Fun Button
+            </Link>
+            <Link 
+              href="/dad-joke"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Dad Joke Generator
+            </Link>
+            <Link 
+              href="/loading-screen"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Super Cool Thing
+            </Link>
+            <Link 
+              href="/existential-crisis"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Existential Crisis
+            </Link>
+          </nav>
+        </div>
+      </aside>
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="fixed top-4 left-4 z-40 bg-white/10 backdrop-blur-md text-white px-4 py-2 rounded-lg hover:bg-white/20 transition-colors border border-white/20"
       >
-        ← Back
-      </Link>
+        ☰
+      </button>
 
       <div className="flex items-center justify-center min-h-screen">
         <h1 className="text-4xl md:text-6xl font-bold text-white text-center mb-8">

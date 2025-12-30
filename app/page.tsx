@@ -90,6 +90,12 @@ export default function Home() {
             >
               Super Cool Thing
             </Link>
+            <Link 
+              href="/existential-crisis"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Existential Crisis
+            </Link>
           </nav>
         </div>
       </aside>

@@ -217,6 +217,12 @@ export default function DadJoke() {
             >
               Animal Soundboard
             </Link>
+            <Link 
+              href="/complaint-generator"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Complaint Generator
+            </Link>
           </nav>
         </div>
       </aside>

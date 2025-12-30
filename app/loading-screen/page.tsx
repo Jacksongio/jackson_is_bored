@@ -140,6 +140,12 @@ export default function PassiveAggressiveLoading() {
             >
               Existential Crisis
             </Link>
+            <Link 
+              href="/animal-sounds"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Animal Soundboard
+            </Link>
           </nav>
         </div>
       </aside>

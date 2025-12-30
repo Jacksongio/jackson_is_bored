@@ -71,12 +71,18 @@ export default function Home() {
           >
             ✕
           </button>
-          <nav className="mt-12">
+          <nav className="mt-12 space-y-2">
             <Link 
               href="/fun-button"
               className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
             >
               Fun Button
+            </Link>
+            <Link 
+              href="/dad-joke"
+              className="block w-full text-left px-4 py-3 text-white hover:bg-white/10 rounded-lg transition-colors"
+            >
+              Dad Joke Generator
             </Link>
           </nav>
         </div>
